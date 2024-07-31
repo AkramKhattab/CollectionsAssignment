@@ -14,8 +14,8 @@ namespace CollectionsAssignment
 
         #region Part1
 
-                        /* Collections Comparison
-            
+        /* Collections Comparison
+
             [Array]
             Structure: Fixed-size contiguous memory block
             Use Case: Fixed-size data, frequent random access
@@ -109,11 +109,9 @@ namespace CollectionsAssignment
             dict["Two"] = 2;
             int value;
             if (dict.TryGetValue("One", out value))
-            {
-             Console.WriteLine(value);
-            }
+            {Console.WriteLine(value);}
             
-                 ================================ Comparison Summary: ================================
+             ================================ Comparison Summary: ================================
             
             1. Performance:
             - Random access: Array, List<T>, ArrayList optimal
@@ -137,6 +135,96 @@ namespace CollectionsAssignment
             - Key-Value pairs: Dictionary<TKey, TValue> (modern), Hashtable (legacy)
             
             */
+        #endregion
+
+
+        #region Part2
+
+        #region Question1
+        public static void ReverseArrayList(ArrayList list)
+        {
+            int left = 0;
+            int right = list.Count - 1;
+
+            while (left < right)
+            {
+                object temp = list[left];
+                list[left] = list[right];
+                list[right] = temp;
+                left++;
+                right--;
+            }
+        }
+        #endregion
+
+        #region Question2
+        public static List<int> GetEvenNumbers(List<int> numbers)
+        {
+            List<int> evenNumbers = new List<int>();
+            foreach (int num in numbers)
+            {
+                if (num % 2 == 0)
+                {
+                    evenNumbers.Add(num);
+                }
+            }
+            return evenNumbers;
+        }
+        #endregion
+
+        #region Question3
+        public class FixedSizeList<T>
+        {
+            private T[] _items;
+            private int _count;
+
+            public FixedSizeList(int capacity)
+            {
+                if (capacity <= 0)
+                    throw new ArgumentException("Capacity must be greater than zero.");
+                _items = new T[capacity];
+                _count = 0;
+            }
+
+            public void Add(T item)
+            {
+                if (_count >= _items.Length)
+                    throw new InvalidOperationException("The list is full. Cannot add more elements.");
+                _items[_count++] = item;
+            }
+
+            public T Get(int index)
+            {
+                if (index < 0 || index >= _count)
+                    throw new ArgumentOutOfRangeException(nameof(index), "Invalid index.");
+                return _items[index];
+            }
+        }
+        #endregion
+
+        #region Question4
+        public static int FirstNonRepeatedCharIndex(string s)
+        {
+            Dictionary<char, int> charCount = new Dictionary<char, int>();
+
+            foreach (char c in s)
+            {
+                if (charCount.ContainsKey(c))
+                    charCount[c]++;
+                else
+                    charCount[c] = 1;
+            }
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (charCount[s[i]] == 1)
+                    return i;
+            }
+
+            return -1;
+        }
+        #endregion
+
         #endregion
 
 
